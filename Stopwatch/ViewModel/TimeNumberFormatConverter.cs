@@ -12,16 +12,19 @@ namespace Stopwatch.ViewModel
     {
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
+            var result = value;
             if (value is decimal)
-                return ((decimal)value).ToString("00.00");
+            {
+                result = ((decimal)value).ToString("00.00");
+            }
             else if (value is int)
             {
-                if (parameter == null)
-                    return ((int)value).ToString("d1");
-                else
-                    return ((int)value).ToString(parameter.ToString());
+                string param = (parameter == null)
+                    ? "d1"
+                    : parameter.ToString();
+                result = ((int)value).ToString(param);
             }
-            return value;
+            return result;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)

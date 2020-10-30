@@ -14,10 +14,9 @@ namespace Stopwatch.ViewModel
         public object Convert(object value, Type targetType, object parameter,
                               System.Globalization.CultureInfo culture)
         {
-            if ((value is bool) && ((bool)value) == true)
-                return Visibility.Visible;
-            else
-                return Visibility.Collapsed;
+            return ((value is bool) && ((bool)value) == true)
+                ? Visibility.Visible
+                : Visibility.Collapsed;
         }
         public object ConvertBack(object value, Type targetType, object parameter,
                                   System.Globalization.CultureInfo culture)

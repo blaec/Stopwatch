@@ -12,10 +12,7 @@ namespace Stopwatch.ViewModel
         public object Convert(object value, Type targetType, object parameter,
                               System.Globalization.CultureInfo culture)
         {
-            if ((value is bool) && ((bool)value) == false)
-                return true;
-            else
-                return false;
+            return ((value is bool) && ((bool)value) == false);
         }
         public object ConvertBack(object value, Type targetType, object parameter,
                                   System.Globalization.CultureInfo culture)

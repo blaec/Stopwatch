@@ -12,19 +12,26 @@ namespace Stopwatch.ViewModel
         public object Convert(object value, Type targetType, object parameter,
                               System.Globalization.CultureInfo culture)
         {
+            double result = 0;
             double parsedValue;
             if ((value != null)
                 && double.TryParse(value.ToString(), out parsedValue)
                 && (parameter != null))
+            {
+                int angle = 0;
                 switch (parameter.ToString())
                 {
                     case "Hours":
-                        return parsedValue * 30;
+                        angle = 30;
+                        break;
                     case "Minutes":
                     case "Seconds":
-                        return parsedValue * 6;
+                        angle = 6;
+                        break;
                 }
-            return 0;
+                result = parsedValue * angle;
+            }
+            return result;
         }
         public object ConvertBack(object value, Type targetType, object parameter,
                                   System.Globalization.CultureInfo culture)
