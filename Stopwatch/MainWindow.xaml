@@ -6,6 +6,7 @@
     <Grid>
         <StackPanel>
             <view:BasicStopwatch Margin="5"/>
+            <view:AnalogStopwatch Margin="5"/>
         </StackPanel>
     </Grid>
 </Window>
