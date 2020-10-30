@@ -48,7 +48,9 @@ namespace Stopwatch.ViewModel
             bool running = Running;
             _stopwatchModel.Reset();
             if (running)
+            {
                 _stopwatchModel.Start();
+            }
         }
 
         int _lastHours;
@@ -93,13 +95,10 @@ namespace Stopwatch.ViewModel
         {
             get
             {
-                if (_stopwatchModel.Elapsed.HasValue)
-                {
-                    return (decimal)_stopwatchModel.Elapsed.Value.Seconds
-                        + (_stopwatchModel.Elapsed.Value.Milliseconds * .001M);
-                }
-                else
-                    return 0.0M;
+
+                return (_stopwatchModel.Elapsed.HasValue)
+                    ? _stopwatchModel.Elapsed.Value.Seconds + (_stopwatchModel.Elapsed.Value.Milliseconds * .001M)
+                    : 0.0M;
             }
         }
 
@@ -117,13 +116,9 @@ namespace Stopwatch.ViewModel
         {
             get
             {
-                if (_stopwatchModel.LapTime.HasValue)
-                {
-                    return (decimal)_stopwatchModel.LapTime.Value.Seconds
-                        + (_stopwatchModel.LapTime.Value.Milliseconds * .001M);
-                }
-                else
-                    return 0.0M;
+                return (_stopwatchModel.LapTime.HasValue)
+                    ? _stopwatchModel.LapTime.Value.Seconds + (_stopwatchModel.LapTime.Value.Milliseconds * .001M)
+                    : 0.0M;
             }
         }
 
@@ -152,9 +147,7 @@ namespace Stopwatch.ViewModel
         public event PropertyChangedEventHandler PropertyChanged;
         protected void OnPropertyChanged(string propertyName)
         {
-            PropertyChangedEventHandler propertyChanged = PropertyChanged;
-            if (propertyChanged != null)
-                propertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }
