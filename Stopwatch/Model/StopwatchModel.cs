@@ -21,15 +21,11 @@ namespace Stopwatch.Model
         {
             get
             {
-                if (_started.HasValue)
-                {
-                    if (_previousElapsedTime.HasValue)
-                        return CalculateTimeElapsedSinceStarted() + _previousElapsedTime;
-                    else
-                        return CalculateTimeElapsedSinceStarted();
-                }
-                else
-                    return _previousElapsedTime;
+                return (Running)
+                    ? (_previousElapsedTime.HasValue)
+                        ? CalculateTimeElapsedSinceStarted() + _previousElapsedTime
+                        : CalculateTimeElapsedSinceStarted()
+                    : _previousElapsedTime;
             }
         }
 
@@ -42,13 +38,17 @@ namespace Stopwatch.Model
         {
             _started = DateTime.Now;
             if (!_previousElapsedTime.HasValue)
+            {
                 _previousElapsedTime = new TimeSpan(0);
+            }
         }
 
         public void Stop()
         {
             if (_started.HasValue)
+            {
                 _previousElapsedTime += DateTime.Now - _started.Value;
+            }
             _started = null;
         }
 
@@ -71,11 +71,7 @@ namespace Stopwatch.Model
 
         private void OnLapTimeUpdated(TimeSpan? lapTime)
         {
-            EventHandler<LapEventArgs> lapTimeUpdated = LapTimeUpdated;
-            if (lapTimeUpdated != null)
-            {
-                lapTimeUpdated(this, new LapEventArgs(lapTime));
-            }
+            LapTimeUpdated?.Invoke(this, new LapEventArgs(lapTime));
         }
 
         public StopwatchModel()
